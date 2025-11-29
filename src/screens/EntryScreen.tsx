@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert, StyleSheet, Image, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, StyleSheet, Image, ActivityIndicator, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Layout } from '../components/Layout';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
@@ -142,95 +142,105 @@ export const EntryScreen = () => {
 
     return (
         <Layout>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                {/* AI Section */}
-                <View style={styles.aiSection}>
-                    <View style={styles.imageContainer}>
-                        {image ? (
-                            <Image source={{ uri: image }} style={styles.previewImage} resizeMode="contain" />
-                        ) : (
-                            <View style={styles.placeholderImage}>
-                                <MaterialCommunityIcons name="camera-outline" size={48} color="#cbd5e1" />
-                                <Text style={styles.placeholderText}>Sin imagen</Text>
-                            </View>
-                        )}
-                        {loading && (
-                            <View style={styles.loadingOverlay}>
-                                <ActivityIndicator size="large" color="#4f46e5" />
-                                <Text style={styles.loadingText}>Procesando...</Text>
-                            </View>
-                        )}
-                    </View>
-
-                    <View style={styles.buttonRow}>
-                        <TouchableOpacity style={styles.actionButton} onPress={() => pickImage('camera')} disabled={loading}>
-                            <MaterialCommunityIcons name="camera" size={24} color="white" />
-                            <Text style={styles.actionButtonText}>Cámara</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.actionButton} onPress={() => pickImage('gallery')} disabled={loading}>
-                            <MaterialCommunityIcons name="image" size={24} color="white" />
-                            <Text style={styles.actionButtonText}>Galería</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    {detectedPlates.length > 0 && (
-                        <View style={styles.chipsContainer}>
-                            <Text style={styles.chipsLabel}>Placas Detectadas:</Text>
-                            <View style={styles.chipsRow}>
-                                {detectedPlates.map((p, index) => (
-                                    <TouchableOpacity key={index} style={styles.chip} onPress={() => handlePlateSelect(p)}>
-                                        <Text style={styles.chipText}>{p}</Text>
-                                    </TouchableOpacity>
-                                ))}
-                            </View>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{ flex: 1 }}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 100}
+            >
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: 24 }}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    {/* AI Section */}
+                    <View style={styles.aiSection}>
+                        <View style={styles.imageContainer}>
+                            {image ? (
+                                <Image source={{ uri: image }} style={styles.previewImage} resizeMode="contain" />
+                            ) : (
+                                <View style={styles.placeholderImage}>
+                                    <MaterialCommunityIcons name="camera-outline" size={48} color="#cbd5e1" />
+                                    <Text style={styles.placeholderText}>Sin imagen</Text>
+                                </View>
+                            )}
+                            {loading && (
+                                <View style={styles.loadingOverlay}>
+                                    <ActivityIndicator size="large" color="#4f46e5" />
+                                    <Text style={styles.loadingText}>Procesando...</Text>
+                                </View>
+                            )}
                         </View>
+
+                        <View style={styles.buttonRow}>
+                            <TouchableOpacity style={styles.actionButton} onPress={() => pickImage('camera')} disabled={loading}>
+                                <MaterialCommunityIcons name="camera" size={24} color="white" />
+                                <Text style={styles.actionButtonText}>Cámara</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.actionButton} onPress={() => pickImage('gallery')} disabled={loading}>
+                                <MaterialCommunityIcons name="image" size={24} color="white" />
+                                <Text style={styles.actionButtonText}>Galería</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        {detectedPlates.length > 0 && (
+                            <View style={styles.chipsContainer}>
+                                <Text style={styles.chipsLabel}>Placas Detectadas:</Text>
+                                <View style={styles.chipsRow}>
+                                    {detectedPlates.map((p, index) => (
+                                        <TouchableOpacity key={index} style={styles.chip} onPress={() => handlePlateSelect(p)}>
+                                            <Text style={styles.chipText}>{p}</Text>
+                                        </TouchableOpacity>
+                                    ))}
+                                </View>
+                            </View>
+                        )}
+                    </View>
+
+                    <View style={styles.typeContainer}>
+                        <TouchableOpacity
+                            onPress={() => { setType('Carro'); validateSoft(plate); }}
+                            style={[
+                                styles.typeButton,
+                                type === 'Carro' ? styles.typeButtonActive : styles.typeButtonInactive
+                            ]}
+                        >
+                            <MaterialCommunityIcons name="car" size={32} color={type === 'Carro' ? '#4f46e5' : '#94a3b8'} />
+                            <Text style={[styles.typeText, type === 'Carro' ? styles.typeTextActive : styles.typeTextInactive]}>
+                                Carro
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => { setType('Moto'); validateSoft(plate); }}
+                            style={[
+                                styles.typeButton,
+                                type === 'Moto' ? styles.typeButtonActive : styles.typeButtonInactive
+                            ]}
+                        >
+                            <MaterialCommunityIcons name="motorbike" size={32} color={type === 'Moto' ? '#4f46e5' : '#94a3b8'} />
+                            <Text style={[styles.typeText, type === 'Moto' ? styles.typeTextActive : styles.typeTextInactive]}>
+                                Moto
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <Input
+                        label="Placa del Vehículo"
+                        placeholder="Ej: ABC 123"
+                        value={plate}
+                        onChangeText={handleTextChange}
+                        autoCapitalize="characters"
+                        error={error}
+                        maxLength={10} // Increased to allow non-standard
+                    />
+
+                    {warning !== '' && (
+                        <Text style={styles.warningText}>{warning}</Text>
                     )}
-                </View>
 
-                <View style={styles.typeContainer}>
-                    <TouchableOpacity
-                        onPress={() => { setType('Carro'); validateSoft(plate); }}
-                        style={[
-                            styles.typeButton,
-                            type === 'Carro' ? styles.typeButtonActive : styles.typeButtonInactive
-                        ]}
-                    >
-                        <MaterialCommunityIcons name="car" size={32} color={type === 'Carro' ? '#4f46e5' : '#94a3b8'} />
-                        <Text style={[styles.typeText, type === 'Carro' ? styles.typeTextActive : styles.typeTextInactive]}>
-                            Carro
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => { setType('Moto'); validateSoft(plate); }}
-                        style={[
-                            styles.typeButton,
-                            type === 'Moto' ? styles.typeButtonActive : styles.typeButtonInactive
-                        ]}
-                    >
-                        <MaterialCommunityIcons name="motorbike" size={32} color={type === 'Moto' ? '#4f46e5' : '#94a3b8'} />
-                        <Text style={[styles.typeText, type === 'Moto' ? styles.typeTextActive : styles.typeTextInactive]}>
-                            Moto
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-
-                <Input
-                    label="Placa del Vehículo"
-                    placeholder="Ej: ABC 123"
-                    value={plate}
-                    onChangeText={handleTextChange}
-                    autoCapitalize="characters"
-                    error={error}
-                    maxLength={10} // Increased to allow non-standard
-                />
-
-                {warning !== '' && (
-                    <Text style={styles.warningText}>{warning}</Text>
-                )}
-
-                <Button title="Registrar Ingreso" onPress={handleSave} style={styles.submitButton} />
-            </ScrollView>
+                    <Button title="Registrar Ingreso" onPress={handleSave} style={styles.submitButton} />
+                </ScrollView>
+            </KeyboardAvoidingView>
         </Layout>
     );
 };
