@@ -1,83 +1,41 @@
-# 🚗 ParkingApp
+# 🚗 ParkingApp - Sistema Inteligente de Gestión de Parqueaderos
 
-Una aplicación móvil moderna para la gestión de parqueaderos en Colombia, con integración de Inteligencia Artificial para el reconocimiento automático de placas vehiculares.
+ParkingApp es una solución móvil integral diseñada para modernizar y optimizar la administración de parqueaderos. Utilizando tecnologías de vanguardia como **React Native**, **Expo** e **Inteligencia Artificial**, esta aplicación permite un control eficiente del flujo vehicular, automatizando el registro de placas y el cálculo de tarifas.
 
-## 📋 Descripción
+---
 
-ParkingApp es una solución completa para administrar el ingreso, salida y cobro de vehículos en parqueaderos. Incluye detección automática de placas mediante IA, cálculo automático de tarifas y persistencia local de datos.
+## 📋 Tabla de Contenido
 
-## 📱 Descargar APK (Android)
+1. [Descripción del Proyecto](#-descripción-del-proyecto)
+2. [Características Principales](#-características-principales)
+3. [Instalación y Configuración](#-instalación-y-configuración)
+4. [Tecnologías Utilizadas](#-tecnologías-utilizadas)
+5. [Evidencia del Funcionamiento](#-evidencia-del-funcionamiento)
 
-Puedes descargar la última versión de la aplicación directamente desde Expo:
+---
 
-[**Descargar ParkingApp APK**](https://expo.dev/accounts/xahepg/projects/parking-app/builds/e7addf4c-b17d-45c1-bec3-60a89866c083)
+## 📖 Descripción del Proyecto
 
-> **Nota:** Esta versión es un "Preview Build" generado con EAS.
+El objetivo de ParkingApp es eliminar los procesos manuales y propensos a errores en la gestión de estacionamientos. La aplicación ofrece una interfaz intuitiva para los operarios, permitiéndoles registrar ingresos y salidas de vehículos de manera rápida y precisa.
 
-## ⚠️ Configuración de Red (HTTP)
+### Flujo de Trabajo
+1.  **Ingreso**: El operario captura una foto de la placa del vehículo. La IA procesa la imagen y extrae el número de placa automáticamente.
+2.  **Validación**: El sistema verifica el formato de la placa y permite correcciones manuales si es necesario.
+3.  **Registro**: Se guarda la hora de entrada y el tipo de vehículo (Carro/Moto).
+4.  **Salida**: Al momento de salir, el sistema calcula automáticamente el costo basado en el tiempo transcurrido y las tarifas configuradas.
 
-La aplicación está configurada para permitir tráfico **HTTP (texto plano)**. Esto es necesario porque el backend de pruebas se encuentra en una instancia EC2 con IP pública sin certificado SSL (`http://IP:PUERTO`).
+---
 
-Esta configuración se maneja a través del plugin `expo-build-properties` en `app.json`, habilitando `usesCleartextTraffic` para Android y `NSAllowsArbitraryLoads` para iOS.
+## 🚀 Características Principales
 
-## ✨ Características
+-   **🤖 Detección de Placas con IA**: Integración con servicios de visión artificial para leer placas automáticamente desde la cámara o galería, reduciendo el tiempo de digitación.
+-   **💰 Tarifas Dinámicas**: Cálculo automático del costo exacto por minuto (Carros: $3.600/h, Motos: $1.500/h).
+-   **📱 Gestión de Vehículos**: Listado en tiempo real de vehículos activos dentro del parqueadero.
+-   **📜 Historial Completo**: Registro detallado de todos los movimientos (entradas y salidas) para auditoría.
+-   **💾 Persistencia de Datos**: Almacenamiento local seguro usando `AsyncStorage`, garantizando que la información no se pierda al cerrar la app.
+-   **⚙️ Configuración Flexible**: Permite configurar la dirección IP del servidor de IA directamente desde la app.
 
-- 🤖 **Detección de Placas con IA**: Escaneo automático de placas usando cámara o galería
-- 💰 **Cálculo Automático de Tarifas**: Precios diferenciados para carros y motos
-- 📊 **Gestión en Tiempo Real**: Visualización de vehículos activos con tiempo transcurrido
-- 📜 **Historial Completo**: Registro de todos los servicios finalizados
-- 💾 **Persistencia Local**: Datos guardados con AsyncStorage
-- ✅ **Validación Inteligente**: Validación de formatos de placas colombianas con modo flexible
-- 🎨 **UI/UX Moderna**: Interfaz limpia y profesional
-
-## 🛠️ Stack Tecnológico
-
-- **Framework**: React Native con Expo SDK 52
-- **Lenguaje**: TypeScript
-- **Navegación**: React Navigation (Bottom Tabs)
-- **Estilos**: StyleSheet nativo
-- **Persistencia**: AsyncStorage
-- **Cámara/Galería**: expo-image-picker
-- **Iconos**: @expo/vector-icons (MaterialCommunityIcons)
-
-## 📱 Funcionalidades por Pantalla
-
-### 🏠 Activos
-- Lista de vehículos estacionados actualmente
-- Buscador por placa en tiempo real
-- Visualización de tiempo transcurrido
-- Modal de cobro y finalización de servicio
-
-### ➕ Ingreso
-- Captura de foto con cámara o selección desde galería
-- Detección automática de placas con IA
-- Selección de tipo de vehículo (Carro/Moto)
-- Validación flexible de formatos de placas
-- Registro manual como alternativa
-
-### 📚 Historial
-- Registro completo de servicios finalizados
-- Visualización de costos y fechas
-- Ordenamiento cronológico
-
-### ⚙️ Configuración
-- Configuración de IP del servidor de IA
-- Persistencia de configuración
-
-## 💵 Tarifas
-
-- **Carros**: $3.600 COP/hora
-- **Motos**: $1.500 COP/hora
-- Cálculo proporcional por minuto para mayor precisión
-
-## 🔐 Validación de Placas
-
-### Formatos Válidos (Colombia)
-- **Carros**: 3 letras + 3 números (Ej: ABC123)
-- **Motos**: 3 letras + 2 números + 1 letra (Ej: AAA12A)
-
-### Validación Flexible
-La app permite guardar placas con formato no estándar mostrando una advertencia, útil para casos especiales o errores de detección de la IA.
+---
 
 ## 🚀 Instalación y Configuración
 
@@ -123,6 +81,103 @@ Body: { file: <imagen> }
   "message": "OK"
 }
 ```
+
+### (Opcional) Descarga del APK (Android)
+Puedes descargar la última versión de la aplicación directamente desde Expo:
+
+[**⬇️ Descargar ParkingApp APK**](https://expo.dev/accounts/xahepg/projects/parking-app/builds/e7addf4c-b17d-45c1-bec3-60a89866c083)
+
+> **Nota:** Esta versión es un "Preview Build" generado con EAS.
+
+### Configuración de Red (Importante)
+La aplicación está configurada para permitir tráfico **HTTP (texto plano)**. Esto es necesario para comunicarse con el backend de pruebas en EC2 (`http://IP:PUERTO`). Esta configuración se maneja a través del plugin `expo-build-properties` en `app.json`.
+
+---
+
+## 🛠 Tecnologías Utilizadas
+
+*   **Frontend**: React Native, Expo SDK 53, TypeScript.
+*   **Navegación**: React Navigation (Bottom Tabs, Native Stack).
+*   **Estilos**: StyleSheet (Diseño responsivo y limpio).
+*   **Cámara e Imágenes**: `expo-camera`, `expo-image-picker`.
+*   **Almacenamiento**: `@react-native-async-storage/async-storage`.
+*   **Red**: `fetch` API con soporte para `multipart/form-data`.
+
+---
+
+## 📸 Evidencia del Funcionamiento
+
+A continuación se presenta la evidencia visual del funcionamiento de la aplicación en sus diferentes módulos.
+
+### 🎥 Videos Demostrativos
+
+| Backend (Servicio IA) | Frontend (App Móvil) |
+| :---: | :---: |
+| ![Evidencia Backend](evidence/evidencia_backend.mov) | ![Evidencia Frontend](evidence/evidencia_frontent.mp4) |
+| *Prueba del servicio de predicción* | *Flujo completo de uso en la App* |
+
+### 🖼 Capturas de Pantalla
+
+#### 1. Configuración Inicial
+Pantalla para establecer la conexión con el servidor de IA.
+
+<p align="center">
+  <img src="evidence/seccion_config.jpg" width="250" />
+  <img src="evidence/guardar_ip.jpg" width="250" />
+</p>
+
+#### 2. Registro de Ingreso (IA)
+Proceso de captura y detección de placa.
+
+<p align="center">
+  <img src="evidence/seccion_ingreso.jpg" width="250" />
+  <img src="evidence/guardar_vehiculo.jpg" width="250" />
+</p>
+
+#### 3. Gestión de Activos
+Listado de vehículos actualmente en el parqueadero.
+
+<p align="center">
+  <img src="evidence/seccion_activos.jpg" width="250" />
+</p>
+
+#### 4. Historial
+Registro histórico de vehículos que han salido.
+
+<p align="center">
+  <img src="evidence/seccion_historial.jpg" width="250" />
+</p>
+
+### ➕ Ingreso
+- Captura de foto con cámara o selección desde galería
+- Detección automática de placas con IA
+- Selección de tipo de vehículo (Carro/Moto)
+- Validación flexible de formatos de placas
+- Registro manual como alternativa
+
+### 📚 Historial
+- Registro completo de servicios finalizados
+- Visualización de costos y fechas
+- Ordenamiento cronológico
+
+### ⚙️ Configuración
+- Configuración de IP del servidor de IA
+- Persistencia de configuración
+
+## 💵 Tarifas
+
+- **Carros**: $3.600 COP/hora
+- **Motos**: $1.500 COP/hora
+- Cálculo proporcional por minuto para mayor precisión
+
+## 🔐 Validación de Placas
+
+### Formatos Válidos (Colombia)
+- **Carros**: 3 letras + 3 números (Ej: ABC123)
+- **Motos**: 3 letras + 2 números + 1 letra (Ej: AAA12A)
+
+### Validación Flexible
+La app permite guardar placas con formato no estándar mostrando una advertencia, útil para casos especiales o errores de detección de la IA.
 
 ## 📦 Generar APK/IPA
 
