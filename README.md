@@ -85,7 +85,7 @@ Body: { file: <imagen> }
 ### (Opcional) Descarga del APK (Android)
 Puedes descargar la última versión de la aplicación directamente desde Expo:
 
-[**⬇️ Descargar ParkingApp APK**](https://expo.dev/accounts/xahepg/projects/parking-app/builds/e7addf4c-b17d-45c1-bec3-60a89866c083)
+[**⬇️ Descargar ParkingApp APK**](https://expo.dev/accounts/xahepg/projects/parking-app/builds/e114dd0c-55cd-45de-be5c-77f9d68e01e8)
 
 > **Nota:** Esta versión es un "Preview Build" generado con EAS.
 
