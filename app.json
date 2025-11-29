@@ -41,6 +41,17 @@
     },
     "plugins": [
       "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          },
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
       "expo-asset"
     ]
   }
