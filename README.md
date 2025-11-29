@@ -6,6 +6,20 @@ Una aplicación móvil moderna para la gestión de parqueaderos en Colombia, con
 
 ParkingApp es una solución completa para administrar el ingreso, salida y cobro de vehículos en parqueaderos. Incluye detección automática de placas mediante IA, cálculo automático de tarifas y persistencia local de datos.
 
+## 📱 Descargar APK (Android)
+
+Puedes descargar la última versión de la aplicación directamente desde Expo:
+
+[**Descargar ParkingApp APK**](https://expo.dev/accounts/xahepg/projects/parking-app/builds/e7addf4c-b17d-45c1-bec3-60a89866c083)
+
+> **Nota:** Esta versión es un "Preview Build" generado con EAS.
+
+## ⚠️ Configuración de Red (HTTP)
+
+La aplicación está configurada para permitir tráfico **HTTP (texto plano)**. Esto es necesario porque el backend de pruebas se encuentra en una instancia EC2 con IP pública sin certificado SSL (`http://IP:PUERTO`).
+
+Esta configuración se maneja a través del plugin `expo-build-properties` en `app.json`, habilitando `usesCleartextTraffic` para Android y `NSAllowsArbitraryLoads` para iOS.
+
 ## ✨ Características
 
 - 🤖 **Detección de Placas con IA**: Escaneo automático de placas usando cámara o galería
